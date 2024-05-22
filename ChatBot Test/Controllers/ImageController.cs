@@ -3,9 +3,7 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace ChatBot_Test.Controllers
@@ -18,25 +16,18 @@ namespace ChatBot_Test.Controllers
         private readonly string connectionString = "Server=MYSQL5046.site4now.net;Database=db_aa771b_botdb;Uid=aa771b_botdb;Pwd=admin123";
 
         [HttpPost]
-        public async Task<IActionResult> PostImage([FromForm] ImageUploadModel model)
+        public async Task<IActionResult> PostImage([FromBody] ImageUrlModel model)
         {
             try
             {
-                // Save the image temporarily
-                var filePath = Path.GetTempFileName();
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.Image.CopyToAsync(stream);
-                }
-
                 // Extract text using OCR API
-                var extractedText = await ExtractTextFromImage(filePath);
+                var extractedText = await ExtractTextFromImage(model.ImageUrl);
 
                 // Create and save report
                 var report = new Report { Description = extractedText };
                 SaveReportToDatabase(report);
 
-                return Ok("Text extracted and report saved successfully.");
+                return Ok("El reporte fue creado con éxito.");
             }
             catch (Exception ex)
             {
@@ -44,17 +35,22 @@ namespace ChatBot_Test.Controllers
             }
         }
 
-        private async Task<string> ExtractTextFromImage(string imagePath)
+        private async Task<string> ExtractTextFromImage(string imageUrl)
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("X-RapidAPI-Key", rapidApiKey);
-                client.DefaultRequestHeaders.Add("X-RapidAPI-Host", "ocr-extract-text.p.rapidapi.com");
+                var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri($"https://ocr-extract-text.p.rapidapi.com/ocr?url={Uri.EscapeDataString(imageUrl)}"),
+                    Headers =
+                    {
+                        { "X-RapidAPI-Key", rapidApiKey },
+                        { "X-RapidAPI-Host", "ocr-extract-text.p.rapidapi.com" },
+                    },
+                };
 
-                var content = new MultipartFormDataContent();
-                content.Add(new StreamContent(new FileStream(imagePath, FileMode.Open)), "image", "image.jpg");
-
-                using (var response = await client.PostAsync("https://ocr-extract-text.p.rapidapi.com/ocr", content))
+                using (var response = await client.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
                     var responseBody = await response.Content.ReadAsStringAsync();
@@ -116,9 +112,9 @@ namespace ChatBot_Test.Controllers
         }
     }
 
-    public class ImageUploadModel
+    public class ImageUrlModel
     {
-        public Microsoft.AspNetCore.Http.IFormFile Image { get; set; }
+        public string ImageUrl { get; set; }
     }
 
     public class Report
