@@ -20,10 +20,12 @@ namespace ChatBot_Test.Controllers
         {
             try
             {
-                // Extract text using OCR API
+                // Extraemos el texto de la imagen utilizando OCR - Extract text de rapidapi.com
                 var extractedText = await ExtractTextFromImage(model.ImageUrl);
 
-                // Create and save report
+                // En este punto se da el diagnóstico mediante IA
+
+                // Creamos un objeto de reporte y le asignamos el texto extraído a su campo descripción
                 var report = new Report { Description = extractedText };
                 SaveReportToDatabase(report);
 
@@ -55,7 +57,7 @@ namespace ChatBot_Test.Controllers
                     response.EnsureSuccessStatusCode();
                     var responseBody = await response.Content.ReadAsStringAsync();
 
-                    // Parse the JSON response and extract the "text" field
+                    // Parseamos el JSON de la respuesta para acceder a la propiedad text en este
                     var jsonResponse = JObject.Parse(responseBody);
                     var extractedText = jsonResponse["text"]?.ToString();
 
