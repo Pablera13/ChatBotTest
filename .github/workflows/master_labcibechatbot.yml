@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - LabCIBEChatBot
+name: Build and deploy ASP.Net Core app to Azure Web App - labcibechatbot
 
 on:
   push:
@@ -52,15 +52,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1AF8EB8AEE364F14B2F62AD33793317B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B092BECB0EB84051B7B1CC5C5829CF21 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_095FF81B36D84062A3CE2E8F4AA0CE1C }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C1DB0252ED9948E288D4B3E9CF61E160 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BB8D7A1EFA33476AA2B2D84B5E51CBD9 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_EDE8E6ACCDD84269B0FC9C36BED8B7FA }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'LabCIBEChatBot'
+          app-name: 'labcibechatbot'
           slot-name: 'Production'
           package: .
           
