@@ -59,3 +59,4 @@ C:\Users\jpfm4\source\repos\ChatBot Test\ChatBot Test\obj\Debug\net7.0\refint\Ch
 C:\Users\jpfm4\source\repos\ChatBot Test\ChatBot Test\obj\Debug\net7.0\ChatBot Test.pdb
 C:\Users\jpfm4\source\repos\ChatBot Test\ChatBot Test\obj\Debug\net7.0\ChatBot Test.genruntimeconfig.cache
 C:\Users\jpfm4\source\repos\ChatBot Test\ChatBot Test\obj\Debug\net7.0\ref\ChatBot Test.dll
+C:\Users\jpfm4\source\repos\ChatBot Test\ChatBot Test\bin\Debug\net7.0\RestSharp.dll

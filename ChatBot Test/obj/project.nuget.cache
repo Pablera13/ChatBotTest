@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "loV4xlm4tk3XL/EhK+s8lsoacM5pdThKeXe8G79lwJWjac+XCSE+y5pfLsYOQ+OzIKtXVFe/vcUg/O4oNlcJVg==",
+  "dgSpecHash": "UIX1iu6BfTDG8jxS3MHreHh6kbZ7WzEM63luM6n+PlIi9t+8sqpbN0wByrujcLwqtY/0G6oYawR1oOSIdTh/bQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jpfm4\\source\\repos\\ChatBot Test\\ChatBot Test\\ChatBot Test.csproj",
   "expectedPackageFiles": [
@@ -21,6 +21,7 @@
     "C:\\Users\\jpfm4\\.nuget\\packages\\mysql.data\\8.4.0\\mysql.data.8.4.0.nupkg.sha512",
     "C:\\Users\\jpfm4\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\jpfm4\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\jpfm4\\.nuget\\packages\\restsharp\\111.1.0\\restsharp.111.1.0.nupkg.sha512",
     "C:\\Users\\jpfm4\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\jpfm4\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\jpfm4\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
