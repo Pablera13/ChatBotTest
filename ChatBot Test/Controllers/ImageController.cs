@@ -25,7 +25,7 @@ namespace ChatBot_Test.Controllers
                 }
 
                 // Crear el reporte con los datos proporcionados
-                int reportId = await CreateReport(model.Contact, model.Description, model.Success);
+                int reportId = await CreateReport(model.Contact, model.Description, model.Success, model.Subscription);
 
                 // Procesar cada URL de imagen si no están vacías
                 if (!string.IsNullOrWhiteSpace(model.ImageUrl1))
@@ -52,18 +52,19 @@ namespace ChatBot_Test.Controllers
         }
 
 
-        private async Task<int> CreateReport(string contact, string description, bool? success)
+        private async Task<int> CreateReport(string contact, string description, bool? success, int? subscription) // Modificado para incluir Subscription
         {
             using (var connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
 
-                var query = "INSERT INTO Report (Contact, Description, Success) VALUES (@Contact, @Description, @Success); SELECT LAST_INSERT_ID();";
+                var query = "INSERT INTO Report (Contact, Description, Success, Subscription) VALUES (@Contact, @Description, @Success, @Subscription); SELECT LAST_INSERT_ID();";
                 using (var cmd = new MySqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@Contact", string.IsNullOrWhiteSpace(contact) ? DBNull.Value : (object)contact);
                     cmd.Parameters.AddWithValue("@Description", string.IsNullOrWhiteSpace(description) ? DBNull.Value : (object)description);
                     cmd.Parameters.AddWithValue("@Success", success.HasValue ? (object)success.Value : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Subscription", subscription.HasValue ? (object)subscription.Value : DBNull.Value); // Modificado para incluir Subscription
                     return Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
@@ -146,6 +147,7 @@ namespace ChatBot_Test.Controllers
                     r.State AS ReportState,
                     r.Contact AS ReportContact,
                     r.Success AS ReportSuccess,
+                    r.Subscription AS UserSubscription,
                     s.Url AS ScreenshotUrl,
                     s.Transcription AS ScreenshotTranscription
                 FROM 
@@ -175,6 +177,7 @@ namespace ChatBot_Test.Controllers
                                         State = reader.GetString("ReportState"),
                                         Contact = reader.GetString("ReportContact"),
                                         Success = reader.GetBoolean("ReportSuccess"),
+                                        Subscription = reader.GetInt16("UserSubscription"),
                                         Screenshots = new List<Screenshot>()
                                     };
                                     reports.Add(currentReport);
@@ -210,6 +213,7 @@ namespace ChatBot_Test.Controllers
             public string Contact { get; set; }
             public string Description { get; set; }
             public bool? Success { get; set; }
+            public int? Subscription { get; set; } 
         }
 
         public class Report
@@ -219,6 +223,7 @@ namespace ChatBot_Test.Controllers
             public string State { get; set; }
             public string Contact { get; set; }
             public bool? Success { get; set; }
+            public int? Subscription { get; set; } 
             public List<Screenshot> Screenshots { get; set; }
         }
 
