@@ -219,11 +219,11 @@ namespace ChatBot_Test.Controllers
         public class Report
         {
             public int Id { get; set; }
-            public string Description { get; set; }
+            public string? Description { get; set; }
             public string State { get; set; }
-            public string Contact { get; set; }
+            public string? Contact { get; set; }
             public bool? Success { get; set; }
-            public int? Subscription { get; set; } 
+            public int Subscription { get; set; } 
             public List<Screenshot> Screenshots { get; set; }
         }
 
