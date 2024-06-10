@@ -12,10 +12,10 @@ namespace ChatBot_Test.Controllers
     public class ImageController : ControllerBase
     {
         private readonly string rapidApiKey = "bdd6d8d993msh3da56b5aa8ea4cep1943c1jsn3c7a14260135";
-        private readonly string connectionString = "Server=MYSQL5046.site4now.net;Database=db_aa771b_chatdb;Uid=aa771b_chatdb;Pwd=admin123";
+        private readonly string connectionString = "Server=MYSQL8010.site4now.net;Database=db_aa9b42_chatdb;Uid=aa9b42_chatdb;Pwd=admin123";
 
         [HttpPost]
-        public async Task<IActionResult> PostImage([FromBody] ImageUrlsModel model)
+        public async Task<IActionResult> PostImage([FromBody] RequestDto model)
         {
             try
             {
@@ -177,7 +177,7 @@ namespace ChatBot_Test.Controllers
                                         State = reader.GetString("ReportState"),
                                         Contact = reader.GetString("ReportContact"),
                                         Success = reader.GetBoolean("ReportSuccess"),
-                                        Subscription = reader.GetInt16("UserSubscription"),
+                                        Subscription = reader.GetInt32("UserSubscription"),
                                         Screenshots = new List<Screenshot>()
                                     };
                                     reports.Add(currentReport);
@@ -205,13 +205,13 @@ namespace ChatBot_Test.Controllers
             }
         }
 
-        public class ImageUrlsModel
+        public class RequestDto
         {
-            public string ImageUrl1 { get; set; }
-            public string ImageUrl2 { get; set; }
-            public string ImageUrl3 { get; set; }
-            public string Contact { get; set; }
-            public string Description { get; set; }
+            public string? ImageUrl1 { get; set; }
+            public string? ImageUrl2 { get; set; }
+            public string? ImageUrl3 { get; set; }
+            public string? Contact { get; set; }
+            public string? Description { get; set; }
             public bool? Success { get; set; }
             public int? Subscription { get; set; } 
         }
